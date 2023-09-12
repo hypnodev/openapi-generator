@@ -1,0 +1,52 @@
+{
+    "name": "hypnodev/openapi-generator",
+    "description": "OpenAPI generator",
+    "keywords": [
+        "hypnodev",
+        "openapi-generator"
+    ],
+    "homepage": "https://github.com/hypnodev/openapi-generator",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Cristian Cosenza",
+            "email": "me@cristiancosenza.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^10.0"
+    },
+    "require-dev": {
+        "../../../vendor/phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hypnodev\\OpenapiGenerator\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hypnodev\\OpenapiGenerator\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hypnodev\\OpenapiGenerator\\OpenapiGeneratorServiceProvider"
+            ],
+            "aliases": {
+                "OpenapiGenerator": "Hypnodev\\OpenapiGenerator\\OpenapiGeneratorFacade"
+            }
+        }
+    }
+}
