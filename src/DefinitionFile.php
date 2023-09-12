@@ -10,7 +10,6 @@ use Hypnodev\OpenapiGenerator\Exceptions\DefinitionException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -139,7 +138,7 @@ class DefinitionFile implements Arrayable
         // If the first parameter is a FormRequest, remove it from the parameters array
         // we want to handle only the route parameters in this method.
         $requestParameter = ($parameters[0] ?? null)?->getType()?->getName();
-        if (($requestParameter !== null) && in_array($requestParameter, [FormRequest::class, HttpRequest::class])) {
+        if (($requestParameter !== null) && in_array(get_parent_class($requestParameter), [FormRequest::class, \Illuminate\Http\Request::class])) {
             array_shift($parameters);
         }
 
