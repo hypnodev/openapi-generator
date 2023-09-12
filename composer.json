@@ -20,7 +20,7 @@
         "illuminate/support": "^10.0"
     },
     "require-dev": {
-        "../../../vendor/phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
