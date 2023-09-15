@@ -95,7 +95,9 @@ class DefinitionFile implements Arrayable
 
     private function createPathEntry(Route $route): void
     {
-        [$controller, $methodName] = explode('@', $route->getActionName());
+        $controller = $route->getControllerClass();
+        $methodName = is_callable($route->getController()) ? '__invoke' : $route->getActionMethod();
+        
         $controllerReflector = new ReflectionClass($controller);
         $controllerMethod = $controllerReflector->getMethod($methodName);
 
