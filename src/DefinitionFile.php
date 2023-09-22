@@ -167,12 +167,9 @@ class DefinitionFile implements Arrayable
             $allowsNull = $parameter->allowsNull();
             $parameterIn = match (true) {
                 $parameterType === 'int', class_exists($parameterType) => 'path',
-                $parameterType === 'string' => 'query'
+                $parameterType === 'string' => 'query',
+                default => (fn()=>throw new DefinitionException("[$method->class@$method->name] Parameter [$parameterName] has no type."))(),
             };
-
-            if ($parameterType === null) {
-                throw new DefinitionException("[$method->class@$method->name] Parameter [$parameterName] has no type.");
-            }
 
             $parameterType = match (true) {
                 $parameterType === 'int', class_exists($parameterType) => 'integer',
