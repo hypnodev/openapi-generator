@@ -17,7 +17,7 @@ class OpenapiGenerator
     public function make(string $prefix = 'api'): array
     {
         $routes = collect(Router::getRoutes())->filter(function (Route $route) use ($prefix) {
-            return Str::contains($route->uri(), Str::remove('/', $prefix))
+            return in_array('api', $route->middleware(), true)
                 && $route->getActionName() !== 'Closure';
         });
 
