@@ -4,7 +4,6 @@ namespace Hypnodev\OpenapiGenerator;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route as Router;
-use Illuminate\Support\Str;
 
 class OpenapiGenerator
 {
@@ -16,10 +15,14 @@ class OpenapiGenerator
 
     public function make(string $prefix = 'api'): array
     {
-        $routes = collect(Router::getRoutes())->filter(function (Route $route) use ($prefix) {
-            return in_array('api', $route->middleware(), true)
-                && $route->getActionName() !== 'Closure';
-        });
+        $regex = preg_quote(trim($prefix, '/'), '/');
+        $routeFilter = fn (Route $route) =>
+        preg_match('/^' . $regex . '((\/.+)|$)/', $route->uri,)
+            &&
+            $route->getActionName() !== 'Closure';
+            
+        $routes = collect(Router::getRoutes())
+            ->filter($routeFilter);
 
         $definitionFile = new DefinitionFile($this->metadata);
         $definitionFile->routes($routes);

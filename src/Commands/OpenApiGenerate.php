@@ -55,8 +55,10 @@ class OpenApiGenerate extends Command
 
         $this->info('Generating OpenApi specification...');
 
+        $prefix = $this->argument('prefix')??'api';
+
         try {
-            $definitions = OpenapiGenerator::make();
+            $definitions = OpenapiGenerator::make($prefix);
             file_put_contents(
                 $output,
                 Yaml::dump($definitions, flags: Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE)
